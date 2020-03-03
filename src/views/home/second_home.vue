@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       list: [
-        'http://img1.imgtn.bdimg.com/it/u=3310174770,3269929865&fm=26&gp=0.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1583250088479&di=3f789bc78e8253c0cf206a17c989d4c4&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201706%2F10%2F20170610002722_aiLvc.jpeg',
         'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg',
         'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=129874930,742584751&fm=26&gp=0.jpg',
         'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3669675253,941952264&fm=26&gp=0.jpg'
