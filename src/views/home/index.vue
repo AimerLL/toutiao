@@ -1,13 +1,28 @@
 <template>
-  <div>
-      <h1>我是主页</h1>
-  </div>
+<!-- 整个页面的大容器 -->
+ <el-container>
+   <!-- 左侧导航 -->
+   <el-aside style="width:230px">
+     <layout-aside></layout-aside>
+     </el-aside>
+   <!-- 右边在放一个大容器 -->
+   <el-container>
+     <!-- 右侧上顶部栏 -->
+     <el-header>
+       <layout-header></layout-header>
+     </el-header>
+     <!-- 右侧下主要区域 -->
+     <el-main>
+       二级容器
+       <!-- 右侧下方主要区域会因为左侧导航的选择而改变  所以应放一个二级容器来承载内容 -->
+       <router-view></router-view>
+     </el-main>
+   </el-container>
+ </el-container>
 </template>
 
 <script>
-export default {
 
-}
 </script>
 
 <style>
