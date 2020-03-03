@@ -1,16 +1,23 @@
 <template>
 <!-- element-UI布局的组件 el-row rl-col -->
     <el-row align="middle" type="flex" class="layout-header">
+      <!--  左侧 element-UI默认分为24份 -->
         <el-col class="left" :span="12">
-            <i class="el-icon-s-fold"></i>
-            <span>江苏传智播客教育科技股份有限公司</span>
+          <!-- 图标 -->
+          <i class="el-icon-s-fold"></i>
+          <span>江苏传智播客教育科技股份有限公司</span>
         </el-col>
+        <!-- 右侧 -->
         <el-col class="right" :span="12">
+          <!-- 再次放置一个 row组件  align属性设置垂直对齐方式  justify设置 水平对齐属性-->
             <el-row type="flex" justify="end" align="middle">
                 <img :src="userInfo.photo" alt="">
+                <!-- 下拉菜单,设置点击事件 触发command-->
                 <el-dropdown trigger="click" @command="clickMenu">
                     <span >{{ userInfo.name }}</span>
+                    <!-- el-dropdown-menu专门做下拉的组件 -->
                     <el-dropdown-menu slot="dropdown">
+                      <!-- el-dropdown-item 专门下拉选项组件  给每一个选项一个command属性 -->
                         <el-dropdown-item command="info">个人信息</el-dropdown-item>
                         <el-dropdown-item command="git">git地址</el-dropdown-item>
                         <el-dropdown-item command="lgout">退出</el-dropdown-item>

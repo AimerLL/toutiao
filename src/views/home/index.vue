@@ -11,9 +11,8 @@
      <el-header>
        <layout-header></layout-header>
      </el-header>
-     <!-- 右侧下主要区域 -->
-     <el-main>
-       二级容器
+     <!-- 右侧下主要区域  el-main 默认给加了20px的内边距-->
+     <el-main style="padding:0">
        <!-- 右侧下方主要区域会因为左侧导航的选择而改变  所以应放一个二级容器来承载内容 -->
        <router-view></router-view>
      </el-main>

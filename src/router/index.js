@@ -4,6 +4,8 @@ import VueRouter from 'vue-router'
 import Home from '@/views/home'
 // 引入登录页
 import Login from '@/views/login'
+// 引入二级路由组件
+import SecondHome from '@/views/home/second_home'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -13,7 +15,12 @@ const routes = [{
 {
   path: '/home',
   name: 'Home',
-  component: Home
+  component: Home,
+  children: [{
+    // 如果path写内容,a => /home/a
+    path: '', // 二级路由的path什么都不写 代表二级路由的默认组件
+    component: SecondHome // 默认的二级路由组件
+  }]
 },
 {
   path: '/login',
