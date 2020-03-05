@@ -5,7 +5,7 @@
         <img src="../../assets/img/logo_admin.png" alt="">
     </div>
       <!-- 导航菜单 -->
-    <el-menu router background-color="#323745" text-color="#adafb5">
+    <el-menu router background-color="#4a4b50" text-color="#909399">
         <!-- 没有子菜单的用el-menu-item -->
         <el-menu-item  index='/home'>
             <i class="el-icon-s-home"></i>
@@ -50,18 +50,21 @@ export default {
 
 <style lang="less" scoped>
     .layout-aside {
-        background-color: #2e2f32;
+        background-color: #4a4b50;
         height: 100vh;
         width: 230px;
         .title {
             text-align: center;
-            padding: 10px 0;
+            padding-top: 20px;
             img {
                height: 30px;
             }
         }
         .el-menu {
             border-right: none;
+            // background-color: #b1b3be;
+            // text-color: #afb2b9;
+            margin-top: 6px;
         }
     }
 </style>

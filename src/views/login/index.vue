@@ -98,7 +98,7 @@ export default {
         }).then(result => {
           // 成功 之后打印结果
           // 把token放入本地缓存
-          window.localStorage.setItem('user-token', result.data.data.token)
+          window.localStorage.setItem('user-token', result.data.token)
           // 成功后跳转到主页
           // push 和 router-link类似 to属性 可以直接是字符串 也可以是对象
           this.$router.push('/home')

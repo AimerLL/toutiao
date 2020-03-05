@@ -51,17 +51,12 @@ export default {
     }
   },
   created () {
-    // 从缓存中获取token
-    const token = localStorage.getItem('user-token')
     // 获取用户的个人信息
     this.$axios({
-      url: '/user/profile', // 请求地址
-      headers: {
-        Authorization: `Bearer ${token}` // 固定格式
-      } // 放置请求头参数
+      url: '/user/profile' // 请求地址
     }).then(result => {
       // 获取成功后,将数据给userInfo
-      this.userInfo = result.data.data
+      this.userInfo = result.data
     })
   }
 }
