@@ -2,7 +2,7 @@
 <!-- 整个页面的大容器 -->
  <el-container>
    <!-- 左侧导航 -->
-   <el-aside style="width:230px">
+   <el-aside style="width:230px;background:#4a4b50">
      <layout-aside></layout-aside>
      </el-aside>
    <!-- 右边在放一个大容器 -->
