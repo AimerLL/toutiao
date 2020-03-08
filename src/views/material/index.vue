@@ -18,8 +18,8 @@
       <el-tab-pane label="全部" name="all">
         <!-- 全部的内容 -->
         <div class="img-list">
-          <el-card class="img-card" v-for="item in list" :key="item.id">
-            <img :src="item.url" alt />
+          <el-card class="img-card" v-for="(item,index) in list" :key="item.id">
+            <img :src="item.url" alt @click="selectImg(index)"/>
             <!-- 操作栏 可以flex布局-->
             <el-row class="operate" type="flex" align="middle" justify="space-around">
               <!-- 收藏了红色 没收藏黑色 -->
@@ -32,8 +32,8 @@
       <el-tab-pane label="收藏" name="collect">
         <!-- 收藏的内容 -->
         <div class="img-list">
-          <el-card class="img-card" v-for="item in list" :key="item.id">
-            <img :src="item.url" alt />
+          <el-card class="img-card" v-for="(item,index) in list" :key="item.id">
+            <img :src="item.url" alt="" @click="selectImg(index)"/>
           </el-card>
         </div>
       </el-tab-pane>
@@ -51,6 +51,16 @@
         @current-change="changePage"
       ></el-pagination>
     </el-row>
+    <!-- 素材预览的组件 -->
+    <el-dialog @opened="openEnd" :visible="dialogVisible" @close="dialogVisible = false">
+      <!-- 放一个走马灯 -->
+      <el-carousel ref="myCarousel" indicator-position="outside" height="400px">
+        <!-- 放走马灯的幻灯片循环项 -->
+        <el-carousel-item v-for="item in list" :key="item.id">
+          <img :src="item.url" alt="" style="width:100%;height:100%">
+        </el-carousel-item>
+      </el-carousel>
+    </el-dialog>
   </el-card>
 </template>
 
@@ -65,10 +75,20 @@ export default {
         total: 0, // 总条数 默认总数是0
         currentPage: 1, // 默认页码,打开页码后显示的页数
         pageSize: 8 // 每页的条数
-      }
+      },
+      dialogVisible: false, // 控制素材预览显示隐藏
+      clickIndex: -1
     }
   },
   methods: {
+    openEnd () {
+      this.$refs.myCarousel.setActiveItem(this.clickIndex) // 尝试设置index
+    },
+    // 点击图片时调用,  ---- 走马灯
+    selectImg (index) {
+      this.clickIndex = index // 索引赋值
+      this.dialogVisible = true
+    },
     // 取消或者收藏素材的方法
     collectOrCancel (row) {
       this.$axios({
