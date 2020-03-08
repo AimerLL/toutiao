@@ -22,8 +22,9 @@
             <img :src="item.url" alt />
             <!-- 操作栏 可以flex布局-->
             <el-row class="operate" type="flex" align="middle" justify="space-around">
-              <i class="el-icon-star-on"></i>
-              <i class="el-icon-delete-solid"></i>
+              <!-- 收藏了红色 没收藏黑色 -->
+              <i @click="collectOrCancel(item)" :style="{color: item.is_collected ? 'red' : 'black'}" class="el-icon-star-on"></i>
+              <i @click="delmaterial(item)" class="el-icon-delete-solid"></i>
             </el-row>
           </el-card>
         </div>
@@ -68,6 +69,37 @@ export default {
     }
   },
   methods: {
+    // 取消或者收藏素材的方法
+    collectOrCancel (row) {
+      this.$axios({
+        url: `/user/images/${row.id}`,
+        method: 'put',
+        data: {
+          collect: !row.is_collected
+        }
+      }).then(() => {
+        // 成功了重新获取数据
+        this.getMaterial()
+      }).catch(() => {
+        // 失败了消息提示
+        this.$message.error('收藏失败')
+      })
+    },
+    // 删除素材的方法
+    delmaterial (row) {
+      // 删除前询问
+      // confirm也是promise
+      this.$confirm('您确定要删除该图片吗?', '提示').then(() => {
+        this.$axios({
+          url: `/user/images/${row.id}`,
+          method: 'delete'
+        }).then(() => {
+          this.getMaterial()
+        }).catch(() => {
+          this.$message.error('操作失败')
+        })
+      })
+    },
     // 定义一个自定义上传素材的方法
     uploadImg (params) {
     // 接口类型是formData 需要实例化一个Formdata对象
