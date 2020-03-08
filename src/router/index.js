@@ -28,6 +28,10 @@ const routes = [{
     // 素材管理
     path: 'material', // 完整地址/home/material 这里简写
     component: () => import('../views/material')
+  }, {
+    // 内容列表
+    path: 'articles', // 完整地址 /home/comment  这里直接简写
+    component: () => import('../views/articles')
   }]
 },
 {
