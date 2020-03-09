@@ -59,7 +59,7 @@
         <!-- 右侧内容 -->
         <div class="right">
           <span><i class="el-icon-edit"></i> 修改</span>
-          <span><i class="el-icon-delete"></i> 删除</span>
+          <span @click="delMaterial(item.id.toString())"><i class="el-icon-delete"></i> 删除</span>
         </div>
       </div>
       <!-- 放置分页组件 -->
@@ -143,6 +143,21 @@ export default {
 
   },
   methods: {
+    // 删除
+    delMaterial (id) {
+      this.$confirm('您确定要删除此条数据?', '提示').then(() => {
+        // 进入then 表示用户点击了确定
+        this.$axios({
+          url: `/articles/${id}`,
+          method: 'delete'
+        }).then(() => {
+          // 如果这时候用getArticles() 则会舍去当前页面的页码和筛选条件 所以用changeCondition()
+          this.changeCondition()
+        }).catch(() => {
+          this.$message.error('删除失败')
+        })
+      })
+    },
     // 点击切换页码的时候执行
     changePage (newPage) {
       this.page.currentPage = newPage // 新页码给数据
