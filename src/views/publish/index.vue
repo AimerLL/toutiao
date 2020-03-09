@@ -10,9 +10,9 @@
                 <el-input v-model="publishForm.title" placeholder="请输入您的标题" style="width:60%"></el-input>
             </el-form-item>
             <el-form-item label="内容" prop="content">
-                <el-input v-model="publishForm.content" placeholder="请输入您的内容" type='textarea' :rows="4"></el-input>
+                <quill-editor v-model="publishForm.content" style="height:300px"></quill-editor>
             </el-form-item>
-            <el-form-item label="封面" prop="cover">
+            <el-form-item label="封面" prop="cover" style="margin-top:20px">
                 <!-- 单选框组 -->
                 <el-radio-group v-model="publishForm.cover.type">
                     <el-radio :label="1">单图</el-radio>
@@ -60,23 +60,72 @@ export default {
     }
   },
   methods: {
+    // 根据id获取文章数据的方法
+    getArticleById (id) {
+      this.$axios({
+        url: `/articles/${id}`
+      }).then(result => {
+        this.publishForm = result.data
+      })
+    },
     // 发布
     publish (draft) {
       this.$refs.myForm.validate().then(() => {
-        // 如果进了then 表示校验成功 调用发布接口  进行发布
+        const { articleId } = this.$route.params // 如果id 不为空就是修改
         this.$axios({
-          url: '/articles',
-          method: 'post',
-          params: { draft }, // query参数 true是草稿
-          data: this.publishForm // body参数
+          url: articleId ? `articles/${articleId}` : '/articles',
+          method: articleId ? 'put' : 'post',
+          params: { draft },
+          data: this.publishForm
         }).then(() => {
-          this.$message.success('发布成功')
+          this.$message.success('操作成功')
           this.$router.push('/home/articles') // 成功后跳转到文章列表页面
         }).catch(() => {
-          this.$message.error('发布失败')
+          this.$message.error('操作失败')
         })
       })
     },
+    // 垃圾代码如下
+    // if (articleId) {
+    //   // 修改
+    //   this.$axios({
+    //     url: `articles/${articleId}`,
+    //     method: 'put',
+    //     params: { draft },
+    //     data: this.publishForm
+    //   }).then(() => {
+    //     this.$message.success('发布成功')
+    //     this.$router.push('/home/articles') // 成功后跳转到文章列表页面
+    //   }).catch(() => {
+    //     this.$message.error('发布失败')
+    //   })
+    // } else {
+    //   // 新增
+    //   this.$axios({
+    //     url: '/articles',
+    //     method: 'post',
+    //     params: { draft }, // query参数 true是草稿
+    //     data: this.publishForm // body参数
+    //   }).then(() => {
+    //     this.$message.success('发布成功')
+    //     this.$router.push('/home/articles') // 成功后跳转到文章列表页面
+    //   }).catch(() => {
+    //     this.$message.error('发布失败')
+    //   })
+    // }
+    // 如果进了then 表示校验成功 调用发布接口  进行发布
+    // this.$axios({
+    //   url: '/articles',
+    //   method: 'post',
+    //   params: { draft }, // query参数 true是草稿
+    //   data: this.publishForm // body参数
+    // }).then(() => {
+    //   this.$message.success('发布成功')
+    //   this.$router.push('/home/articles') // 成功后跳转到文章列表页面
+    // }).catch(() => {
+    //   this.$message.error('发布失败')
+    // })
+
     // 接收数据
     getChannels () {
       this.$axios({
@@ -89,6 +138,14 @@ export default {
   created () {
     // 调用获取接收数据的方法
     this.getChannels()
+    // 判断是否存在id 存在就获取数据
+    // crticleId在路由中设置的
+    const { articleId } = this.$route.params
+    // if (articleId) {
+    //   // 获取数据
+    //   this.getArticleById(articleId)
+    // }
+    articleId && this.getArticleById(articleId) // && 如果前面符合才会进入后面的
   }
 }
 </script>

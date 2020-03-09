@@ -23,19 +23,19 @@ const routes = [{
   }, {
     // 评论列表
     path: 'comment', // 完整地址 /home/comment  这里直接简写
-    component: () => import('../views/comment')
+    component: () => import('@/views/comment')
   }, {
     // 素材管理
     path: 'material', // 完整地址/home/material 这里简写
-    component: () => import('../views/material')
+    component: () => import('@/views/material')
   }, {
     // 内容列表
     path: 'articles', // 完整地址 /home/comment  这里直接简写
-    component: () => import('../views/articles')
+    component: () => import('@/views/articles')
   }, {
     // 发布文章
-    path: 'publish', // 完整地址 /home/comment  这里直接简写
-    component: () => import('../views/publish')
+    path: 'publish/:articleId?', // 完整地址 /home/comment  这里直接简写
+    component: () => import('@/views/publish')
   }]
 },
 {

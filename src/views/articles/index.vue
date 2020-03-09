@@ -58,7 +58,9 @@
         </div>
         <!-- 右侧内容 -->
         <div class="right">
-          <span><i class="el-icon-edit"></i> 修改</span>
+          <!-- 第一种绑定事件跳转方法 -->
+          <!-- <span @click="toPublish"><i class="el-icon-edit"></i> 修改</span> -->
+          <span @click="$router.push(`/home/publish/${item.id.toString()}`)"><i class="el-icon-edit"></i> 修改</span>
           <span @click="delMaterial(item.id.toString())"><i class="el-icon-delete"></i> 删除</span>
         </div>
       </div>
@@ -143,6 +145,10 @@ export default {
 
   },
   methods: {
+    // 修改文章 跳转到文章发布页面
+    toPublish () {
+      this.$router.push('/home/publish')
+    },
     // 删除
     delMaterial (id) {
       this.$confirm('您确定要删除此条数据?', '提示').then(() => {
