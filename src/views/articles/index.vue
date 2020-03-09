@@ -10,6 +10,8 @@
         <el-form style="padding-left:50px">
           <el-form-item label="文章状态:">
                 <!-- 单选框组 -->
+                <!-- 筛选第一种方法 监听每个组件的change方法 -->
+                <!-- <el-radio-group @change="changeCondition" v-model="searchForm.status"> -->
                 <el-radio-group v-model="searchForm.status">
                     <!-- 单选框选项 -->
                     <!-- 接口文章状态，0-草稿，1-待审核，2-审核通过，3-审核失败，不传为全部 / 先将 5 定义成 全部 -->
@@ -22,7 +24,9 @@
             </el-form-item>
             <el-form-item label="频道类型:">
                 <!-- 选择器 -->
-                <el-select  placeholder="请选择频道" v-model="searchForm.channel_id">
+                <!-- 筛选第一种方法 监听每个组件的change方法 -->
+                <!-- <el-select @change="changeCondition" placeholder="请选择频道" v-model="searchForm.channel_id"> -->
+                <el-select placeholder="请选择频道" v-model="searchForm.channel_id">
                    <!-- 下拉选项通过接口获取 -->
                   <!-- el-option是下拉的选项 label是显示值  value是绑定的值 -->
                    <el-option v-for="item in channels" :key="item.id" :label="item.name" :value="item.id"></el-option>
@@ -30,7 +34,9 @@
             </el-form-item>
             <el-form-item label="日期范围:">
                 <!-- 日期范围选择 -->
-                <el-date-picker type='daterange' v-model="searchForm.dateRange"></el-date-picker>
+                <!-- 筛选第一种方法 监听每个组件的change方法 -->
+                <!-- <el-date-picker @change="changeCondition" value-format="yyyy-MM-dd" type='daterange' v-model="searchForm.dateRange"></el-date-picker> -->
+                <el-date-picker value-format="yyyy-MM-dd" type='daterange' v-model="searchForm.dateRange"></el-date-picker>
             </el-form-item>
         </el-form>
 
@@ -56,6 +62,19 @@
           <span><i class="el-icon-delete"></i> 删除</span>
         </div>
       </div>
+      <!-- 放置分页组件 -->
+      <el-row type='flex' justify="center" style="height:80px" align="middle">
+        <!-- 分页组件 -->
+        <el-pagination
+          background
+          layout='prev, pager, next'
+          :total="page.total"
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
+          @current-change="changePage">
+
+        </el-pagination>
+      </el-row>
     </el-card>
 </template>
 
@@ -63,7 +82,12 @@
 export default {
   data () {
     return {
-    //   定义一个表单数据对象
+      page: {
+        total: 0, // 总条数 默认总数是0
+        currentPage: 1, // 默认页码,打开页码后显示的页数
+        pageSize: 10 // 每页的条数
+      },
+      //   定义一个表单数据对象
       searchForm: {
         // 数据
         status: 5, // 默认为全部的状态
@@ -74,6 +98,18 @@ export default {
       list: [], // 接受文章列表
       // 地址对应的文件变成了变量 在编译的时候会被拷贝到对应位置
       defaultImg: require('../../assets/img/IU.jpg')
+    }
+  },
+  // 筛选第二种方法  watch监听data中的数据变化
+  watch: {
+    searchForm: {
+      deep: true, // deep 深度检测 不论嵌套多少层 都可以监听到改变
+      // handler是一个固定写法 对象中任何的变化都会触发该函数
+      handler () {
+        // 条件改变 回到第一页
+        this.page.currentPage = 1
+        this.changeCondition()
+      }
     }
   },
   // 过滤器
@@ -107,6 +143,24 @@ export default {
 
   },
   methods: {
+    // 点击切换页码的时候执行
+    changePage (newPage) {
+      this.page.currentPage = newPage // 新页码给数据
+      this.changeCondition() // 调用改变事件的方法
+    },
+    // 改变筛选条件
+    // 改变筛选条件时 调用此方法 此时表单数据已经变成最新的
+    changeCondition () {
+      const params = {
+        page: this.page.currentPage,
+        per_page: this.page.pageSize,
+        status: this.searchForm.status === 5 ? null : this.searchForm.status,
+        channel_id: this.searchForm.channel_id,
+        begin_pubdate: this.searchForm.dateRange && this.searchForm.dateRange.length ? this.searchForm.dateRange[0] : null,
+        end_pubdate: this.searchForm.dateRange && this.searchForm.dateRange.length > 1 ? this.searchForm.dateRange[1] : null
+      }
+      this.getArticles(params)
+    },
     getChannels () {
       this.$axios({
         url: '/channels'
@@ -116,11 +170,14 @@ export default {
       })
     },
     // 获取文章列表
-    getArticles () {
+    getArticles (params) {
       this.$axios({
-        url: '/articles'
+        url: '/articles',
+        params
       }).then(result => {
         this.list = result.data.results // 获取文章列表
+        // 将总数赋值给total
+        this.page.total = result.data.total_count
       })
     }
   },
