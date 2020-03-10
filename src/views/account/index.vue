@@ -5,14 +5,14 @@
             <template slot="title">账户信息</template>
         </bread-crumb>
         <!-- 表单容器 -->
-        <el-form label-width="100px">
-            <el-form-item label="用户名">
+        <el-form ref="myForm" :model="formData" :rules="rules" label-width="100px">
+            <el-form-item prop="name" label="用户名">
                 <el-input v-model="formData.name" style="width:30%"></el-input>
             </el-form-item>
             <el-form-item label="简 介">
                 <el-input v-model="formData.intro" style="width:30%"></el-input>
             </el-form-item>
-            <el-form-item label="邮 箱">
+            <el-form-item prop="email" label="邮 箱">
                 <el-input v-model="formData.email" style="width:30%"></el-input>
             </el-form-item>
             <el-form-item label="手机号">
@@ -20,11 +20,11 @@
                 <el-input v-model="formData.mobile" disabled style="width:30%"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type='primary'>保存</el-button>
+                <el-button type='primary' @click="saveUser">保存</el-button>
             </el-form-item>
         </el-form>
         <!-- 头像 -->
-        <img class="head-upload" src="../../assets/img/4.jpg" alt="">
+        <img class="head-upload" :src="formData.photo ? formData.photo : defaultImg" alt="">
   </el-card>
 </template>
 
@@ -38,7 +38,15 @@ export default {
         photo: '',
         email: '',
         mobile: ''
-      }
+      },
+      rules: {
+        name: [{ required: true, message: '用户名不能为空', trigger: 'blur' },
+          { min: 1, max: 7, message: '用户名的长度为1-7位', trigger: 'blur' }],
+        email: [{ required: true, message: '邮箱不能为空', trigger: 'blur' },
+          { pattern: /^([a-zA-Z]|[0-9])(\w|-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/, message: '邮箱格式不正确', trigger: 'blur' }
+        ]
+      },
+      defaultImg: require('../../assets/img/4.jpg') // 默认头像的变量
     }
   },
   methods: {
@@ -48,6 +56,22 @@ export default {
         url: '/user/profile'
       }).then(result => {
         this.formData = result.data // 数据赋值给表单
+      })
+    },
+    // 保存用户信息
+    saveUser () {
+      // 保存前校验
+      this.$refs.myForm.validate().then(() => {
+        // 进到then 校验成功 可以保存 调用接口
+        this.$axios({
+          url: '/user/profile',
+          method: 'patch',
+          data: this.formData
+        }).then(() => {
+          this.$message.success('保存用户信息成功')
+        }).catch(() => {
+          this.$message.error('保存用户信息失败')
+        })
       })
     }
   },
