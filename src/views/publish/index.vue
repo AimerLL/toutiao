@@ -66,7 +66,7 @@ export default {
   watch: {
     // watch是监听data中的数据变化
     // 路由在初始化之后 会把$route也放置在页面data中
-    $router: function (to, form) {
+    $route: function (to, form) {
       // 监听$route变化
       // to 新的路由地址对象  form 旧的路由地址对象
       console.log(to) // 打印to属性看

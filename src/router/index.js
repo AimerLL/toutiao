@@ -36,6 +36,10 @@ const routes = [{
     // 发布文章
     path: 'publish/:articleId?', // 完整地址 /home/comment  这里直接简写
     component: () => import('@/views/publish')
+  }, {
+    // 账户信息
+    path: 'account', // 完整地址 /home/account  这里直接简写
+    component: () => import('@/views/account')
   }]
 },
 {
