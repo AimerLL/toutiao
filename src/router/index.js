@@ -46,6 +46,11 @@ const routes = [{
   path: '/login',
   name: 'login',
   component: Login
+},
+{
+  // 404
+  path: '*', // 匹配任何找不到组件的路由
+  component: () => import('@/views/404')
 }
   // {
   // path: '/about',
