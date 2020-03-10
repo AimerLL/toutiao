@@ -25,7 +25,7 @@
         </el-form>
         <!-- 头像 -->
         <!-- show-file-list不显示上传数据列表 -->
-        <el-upload action="" :http-request="uploadImg" show-file-list="false">
+        <el-upload action="" :http-request="uploadImg" :show-file-list="false">
         <img class="head-upload" :src="formData.photo ? formData.photo : defaultImg" alt="">
         </el-upload>
   </el-card>
