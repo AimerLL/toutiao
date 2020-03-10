@@ -58,7 +58,7 @@ export default {
   .wrap{
     width: 200px;
     height: 200px;
-    padding: 150px 200px;
+    padding: 150px 150px;
     position: relative;
   }
   .cube{

@@ -17,17 +17,20 @@
       <!-- label标签显示的名称  name页签选中的值 -->
       <el-tab-pane label="全部" name="all">
         <!-- 全部的内容 -->
-        <div class="img-list">
-          <el-card class="img-card" v-for="(item,index) in list" :key="item.id">
-            <img :src="item.url" alt @click="selectImg(index)"/>
-            <!-- 操作栏 可以flex布局-->
-            <el-row class="operate" type="flex" align="middle" justify="space-around">
-              <!-- 收藏了红色 没收藏黑色 -->
-              <i @click="collectOrCancel(item)" :style="{color: item.is_collected ? 'red' : 'black'}" class="el-icon-star-on"></i>
-              <i @click="delmaterial(item)" class="el-icon-delete-solid"></i>
-            </el-row>
-          </el-card>
-        </div>
+        <!-- 内容 循环生成页面结构 -->
+          <div class='img-list'>
+            <!-- 采用v-for对list数据进行循环 -->
+            <el-card class='img-card' v-for="(item,index) in list" :key="item.id">
+              <!-- 放置图片 并且赋值 图片地址-->
+              <img :src="item.url" alt="" @click="selectImg(index)">
+              <!-- 操作栏 可以flex布局-->
+              <el-row class='operate' type='flex' align="middle" justify="space-around">
+                <!-- 两个图标注册点击事件  根据 数据判断 图标的颜色-->
+                <i @click="collectOrCancel(item)" :style="{color: item.is_collected ? 'red' : 'black'}" class='el-icon-star-on'></i>
+                <i @click="delMaterial(item)" class='el-icon-delete-solid'></i>
+              </el-row>
+            </el-card>
+          </div>
       </el-tab-pane>
       <el-tab-pane label="收藏" name="collect">
         <!-- 收藏的内容 -->

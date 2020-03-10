@@ -10,17 +10,20 @@
                 <el-input v-model="publishForm.title" placeholder="请输入您的标题" style="width:60%"></el-input>
             </el-form-item>
             <el-form-item label="内容" prop="content">
-                <quill-editor v-model="publishForm.content" style="height:300px"></quill-editor>
+                <quill-editor v-model="publishForm.content" style="height:200px"></quill-editor>
             </el-form-item>
-            <el-form-item label="封面" prop="cover" style="margin-top:20px">
+            <el-form-item label="封面" prop="cover" style="margin-top:110px">
                 <!-- 单选框组 -->
-                <el-radio-group v-model="publishForm.cover.type">
+                <!-- 类型变化时触发changeType -->
+                <el-radio-group @change="changeType" v-model="publishForm.cover.type">
                     <el-radio :label="1">单图</el-radio>
                     <el-radio :label="3">三图</el-radio>
                     <el-radio :label="0">无图</el-radio>
                     <el-radio :label="-1">自动</el-radio>
                 </el-radio-group>
             </el-form-item>
+            <!-- 放置封面组件 -->
+            <cover-image @selectTwoImg="receiveImg" :list="publishForm.cover.images"></cover-image>
             <el-form-item label="频道" prop="channel_id">
                 <el-select placeholder="请选择频道" v-model="publishForm.channel_id">
                     <!-- 下拉选项 -->
@@ -60,6 +63,25 @@ export default {
     }
   },
   methods: {
+    // 接收cover-image传递过来的数据
+    receiveImg (url, index) {
+      // 接收到了cover-image传过来的数据
+      // 然后需要更新images的数据
+      // 一开始只有url 但是三图的时候 不知道要传给哪一条 添加一个index
+      // 有传过来的index 有url 就可以改变数据了
+      this.publishForm.cover.images.splice(index, 1, url) // splice(索引,删除的个数,替换的个数)
+    },
+    // 选图片改变类型事件
+    changeType () {
+      // 单图
+      if (this.publishForm.cover.type === 1) {
+        this.publishForm.cover.images = ['']
+      } else if (this.publishForm.cover.type === 3) {
+        this.publishForm.cover.images = ['', '', ''] // 三图
+      } else {
+        this.publishForm.cover.images = [] // 无图或自动
+      }
+    },
     // 根据id获取文章数据的方法
     getArticleById (id) {
       this.$axios({
