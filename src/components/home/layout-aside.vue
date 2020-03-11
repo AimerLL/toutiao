@@ -2,10 +2,10 @@
   <div class="layout-aside">
       <!-- 头部图片 -->
     <div class="title">
-        <img src="../../assets/img/logo_admin.png" alt="">
+        <img :src="collapse ? smallImg : bigImg" alt="">
     </div>
       <!-- 导航菜单 -->
-    <el-menu router background-color="#4a4b50" text-color="#909399">
+    <el-menu :collapse="collapse" router background-color="#4a4b50" text-color="#909399">
         <!-- 没有子菜单的用el-menu-item -->
         <el-menu-item  index='/home'>
             <i class="el-icon-s-home"></i>
@@ -44,7 +44,16 @@
 
 <script>
 export default {
-
+  // 接收父组件传来的collapse状态值
+  props: ['collapse'],
+  // 当左侧导航栏状态切换时,导航栏上方的图标也需要变化
+  // 此时img是动态的不是固定的 需要把地址改为变量,可以用require
+  data () {
+    return {
+      bigImg: require('../../assets/img/logo_admin.png'),
+      smallImg: require('../../assets/img/toutiao.png')
+    }
+  }
 }
 </script>
 
@@ -52,7 +61,7 @@ export default {
     .layout-aside {
         background-color: #4a4b50;
         height: 100vh;
-        width: 230px;
+        // width: 230px;
         .title {
             text-align: center;
             padding-top: 20px;

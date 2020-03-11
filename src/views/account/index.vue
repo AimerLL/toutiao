@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import eventBus from '@/utils/eventBus'
 export default {
   data () {
     return {
@@ -72,6 +73,8 @@ export default {
           data: this.formData
         }).then(() => {
           this.$message.success('保存用户信息成功')
+          // 广播一个消息 updateUser
+          eventBus.$emit('updateUser')
         }).catch(() => {
           this.$message.error('保存用户信息失败')
         })
@@ -88,6 +91,8 @@ export default {
         data
       }).then(result => {
         this.formData.photo = result.data.photo
+        // 头像和头部组件右上角的头像不会及时更新 需要用eventBus
+        eventBus.$emit('updateUser')
       })
     }
   },
