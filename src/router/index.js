@@ -40,6 +40,10 @@ const routes = [{
     // 账户信息
     path: 'account', // 完整地址 /home/account  这里直接简写
     component: () => import('@/views/account')
+  }, {
+    // 图表
+    path: 'tubiao', // 完整地址 /home/account  这里直接简写
+    component: () => import('@/views/tubiao')
   }]
 },
 {

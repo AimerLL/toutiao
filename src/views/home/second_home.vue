@@ -7,28 +7,29 @@
          <img :src="item" alt="">
       </el-carousel-item>
     </el-carousel> -->
-<div class="wrap">
-  <div class="cube">
-    <div class="out_front">
-      <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+    <div class="wrap">
+     <div class="cube">
+        <div class="out_front">
+          <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+        </div>
+        <div class="out_back">
+         <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+        </div>
+        <div class="out_left">
+          <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+        </div>
+        <div class="out_right">
+          <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+        </div>
+        <div class="out_top">
+          <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+        </div>
+        <div class="out_bottom">
+          <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
+        </div>
+      </div>
     </div>
-    <div class="out_back">
-      <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
-    </div>
-    <div class="out_left">
-      <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
-    </div>
-    <div class="out_right">
-      <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
-    </div>
-    <div class="out_top">
-      <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
-    </div>
-    <div class="out_bottom">
-      <img class="pic" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1131779038,2028376511&fm=26&gp=0.jpg" alt="">
-    </div>
-  </div>
-</div>
+
 </div>
 </template>
 
