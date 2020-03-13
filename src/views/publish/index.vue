@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { getChannels } from '@/api/channels'
 export default {
   data () {
     return {
@@ -176,12 +177,9 @@ export default {
     // })
 
     // 接收数据
-    getChannels () {
-      this.$axios({
-        url: '/channels'
-      }).then(result => {
-        this.channels = result.data.channels // 将数据赋值给本地数据
-      })
+    async getChannels () {
+      const result = await getChannels()
+      this.channels = result.data.channels // 将数据赋值给本地数据
     }
   },
   created () {
