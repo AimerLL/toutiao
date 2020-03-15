@@ -70,7 +70,7 @@ export default {
     $route: function (to, form) {
       // 监听$route变化
       // to 新的路由地址对象  form 旧的路由地址对象
-      console.log(to) // 打印to属性看
+      // console.log(to) // 打印to属性看
       // to属性里就是原路由对象
       // params里的articleId 如果有数据 则应该获取编辑文章的数据 如果没有则是新发表 将数据清空
       if (to.params.articleId) {
